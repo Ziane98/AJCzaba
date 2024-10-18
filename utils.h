@@ -1,10 +1,12 @@
 
 #include "utils.c"
-void printContacts(char listNom[100][100] , char listNum[100][100]);
 
-int chercheContacts(char shearch[100] , char listNom[100][100] , char listNum[100][100]);
 
-void addContacts(char contact[100],char *num, char listNom[100][100] , char listNum[100][100]);
+void printContacts(T_annuaire *annuaire);
 
-void dellContact(char contact[100], char listNom[100][100] , char listNum[100][100]);
+int chercheContacts(char shearch[100] , T_annuaire *annuaire);
+
+void addContacts(char contact[100],char *num, T_annuaire *annuaire);
+
+void dellContact(char contact[100], T_annuaire *annuaire);
 

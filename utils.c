@@ -2,24 +2,30 @@
 #include <string.h>
 #include <stdlib.h>
 
-void printContacts(char listNom[100][100] , char listNum[100][100]){
+typedef struct structAnnuaire
+{
+    char listNom[100][100];
+    char listNum[100][100];
+} T_annuaire;
+
+void printContacts(T_annuaire *annuaire){
         int i = 0;
         printf("---LISTE DE CONTACTS---\n");
 
-        while (listNom[i][0] != '\0'){
+        while (annuaire->listNom[i][0] != '\0'){
 
-            printf("%s  |   %s\n",listNom[i],listNum[i]);
+            printf("%s  |   %s\n",annuaire->listNom[i],annuaire->listNum[i]);
             i++;
         }
 }
 
-int chercheContacts (char shearch[100] , char listNom[100][100] , char listNum[100][100]){
+int chercheContacts (char shearch[100] , T_annuaire *annuaire){
     int i = 0;
     int j = 0;
-    while (listNom[i][0] != '\0'){
-        while (listNom[i][j]==shearch[j])
+    while (annuaire->listNom[i][0] != '\0'){
+        while (annuaire->listNom[i][j]==shearch[j])
         {
-            if ((listNom[i][j] == '\0') &&  (shearch[j]=='\0')){
+            if ((annuaire->listNom[i][j] == '\0') &&  (shearch[j]=='\0')){
                 printf("%d",i+1);
                 return i+1;
             }
@@ -32,30 +38,30 @@ int chercheContacts (char shearch[100] , char listNom[100][100] , char listNum[1
 }
 
 
-void addContacts(char contact[100], char num[100], char listNom[100][100] , char listNum[100][100]){
+void addContacts(char contact[100], char num[100], T_annuaire *annuaire){
 
     int i=0;
     int j=0;
-    while (listNom[i][0] != '\0') i++;
+    while (annuaire->listNom[i][0] != '\0') i++;
 
-    strcpy(listNum[i],num);
+    strcpy(annuaire->listNum[i],num);
 
     j=0;
 
-    strcpy(listNom[i],contact);
+    strcpy(annuaire->listNom[i],contact);
 }
 
-void dellContact(char contact[100], char listNom[100][100] , char listNum[100][100]){
-    int existe = chercheContacts(contact,listNom,listNum);
+void dellContact(char contact[100], T_annuaire *annuaire){
+    int existe = chercheContacts(contact,annuaire);
     if (existe){
         existe -= 1;
-        while (listNom[existe+1][0]){
-            strcpy(listNom[existe],listNom[existe+1]);
-            strcpy(listNum[existe],listNum[existe+1]);
+        while (annuaire->listNom[existe+1][0]){
+            strcpy(annuaire->listNom[existe],annuaire->listNom[existe+1]);
+            strcpy(annuaire->listNum[existe],annuaire->listNum[existe+1]);
             existe++;
         }
-        strcpy(listNom[existe],listNom[existe+1]);
-        strcpy(listNum[existe],listNum[existe+1]);
+        strcpy(annuaire->listNom[existe],annuaire->listNom[existe+1]);
+        strcpy(annuaire->listNum[existe],annuaire->listNum[existe+1]);
         
     }
     else{

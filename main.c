@@ -17,11 +17,10 @@ void main(){
     char search[100];
     char contact[100];
     char num[100];
-    char listNom[100][100];
-    char listNum[100][100];
+    T_annuaire annuaire;
 
-    memset(listNom, '\0', sizeof(listNom));
-    memset(listNum, '\0', sizeof(listNum));
+    memset(annuaire.listNom, '\0', sizeof(annuaire.listNom));
+    memset(annuaire.listNum, '\0', sizeof(annuaire.listNum));
     memset(search, '\0', sizeof(search));
 
     int navMenu = 42;
@@ -43,7 +42,7 @@ void main(){
 
         if (navMenu == 0)
         {
-           printContacts(listNom ,listNum);
+           printContacts(&annuaire);
            navMenu = 42;
         }
 
@@ -52,8 +51,8 @@ void main(){
         {
             printf("entre un nom a chercher :\n");
             scanf(" %s",search);
-            int result = chercheContacts(search,listNom,listNum);
-            if (result) printf("\n le num de %s est : %s\n",listNom[result-1],listNum[result-1]);
+            int result = chercheContacts(search,&annuaire);
+            if (result) printf("\n le num de %s est : %s\n",annuaire.listNom[result-1],annuaire.listNum[result-1]);
             else printf("Contacted non repertorier\n");
             navMenu = 42;
         }
@@ -62,15 +61,15 @@ void main(){
         {
             printf("\n entrez le nom du contact à ajouter : ");
             scanf(" %s",contact);
-            if (chercheContacts(contact,listNom,listNum)){
-                printf("\ncontact deja Existe (%d  %s)",chercheContacts(contact,listNom,listNum),contact);
+            if (chercheContacts(contact,&annuaire)){
+                printf("\ncontact deja Existe (%d  %s)",chercheContacts(contact,&annuaire),contact);
             }
             else{
 
             printf("\nentrez son numéro de téléphone :");
             scanf(" %s",num);
 
-            addContacts(contact,num, listNom , listNum);
+            addContacts(contact,num,&annuaire);
             
             }
             navMenu = 42;
@@ -81,10 +80,10 @@ void main(){
         {
             printf("entre un nom a supprimer :\n");
             scanf(" %s",search);
-            int result = chercheContacts(search,listNom,listNum);
+            int result = chercheContacts(search,&annuaire);
             if (result){
-                dellContact(search,listNom,listNum);
-                printContacts(listNom ,listNum);
+                dellContact(search,&annuaire);
+                printContacts(&annuaire);
             }
             else printf("Contacted non repertorier\n");
             navMenu = 42;
